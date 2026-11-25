@@ -1,0 +1,24 @@
+name: WintermarkBounties
+version: '${version}'
+main: io.github.wintermarkinteractive.bounties.BountiesPlugin
+description: Player bounties with a head menu, stacking bounties, claims, head drops and broadcasts.
+author: Wintermark Interactive
+website: https://github.com/wintermarkinteractive
+api-version: '26.3'
+softdepend: [WintermarkEconomy, Vault]
+permissions:
+  wintermark.bounty.use:
+    description: Open the bounty menu and check bounties.
+    default: true
+  wintermark.bounty.place:
+    description: Place bounties with your own money.
+    default: true
+  wintermark.bounty.admin:
+    description: Server bounties, remove (with refund), force claim, reload.
+    default: op
+  wintermark.bounty.bypass.cooldown:
+    description: No waiting time between placing bounties (not given to ops by default).
+    default: false
+  wintermark.bounty.exempt:
+    description: Nobody can place a bounty on this player (checked while they are online).
+    default: false

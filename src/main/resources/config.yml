@@ -1,0 +1,157 @@
+# ============================================================
+#  Wintermark Bounties - config.yml
+#  Money comes from Wintermark Economy, or any Vault economy.
+#  Amounts accept abbreviations: 500, 2.5k, 1m
+#  Texts use MiniMessage: https://docs.advntr.dev/minimessage/format.html
+# ============================================================
+
+# Smallest amount a player can place (or add) in one go. "0" = no minimum.
+min-amount: "100"
+
+# Extra % the placer pays on top of the bounty (a money sink). 0 = no tax.
+tax-percent: 5
+
+# Seconds a player must wait between placing bounties. 0 = off. Bypass: wintermark.bounty.bypass.cooldown
+place-cooldown-seconds: 30
+
+anti-abuse:
+  # No payout when killer and target share an IP address (alt accounts). The bounty stays open.
+  # Turn this off for testing with a friend on the same home network.
+  block-same-ip: true
+  # Can players who paid into a bounty claim it themselves?
+  contributors-can-claim: false
+
+expiry:
+  # Each player's share expires this many days after they last added to it and is refunded. 0 = never.
+  # Decimals work for testing, e.g. 0.001 = about 1.5 minutes.
+  days: 7
+  # How often expired shares are checked (minutes).
+  check-minutes: 5
+
+auto-bounty:
+  # The server puts a bounty on players who kill too many players in a short time.
+  enabled: true
+  kills: 3
+  minutes: 10
+  amount: "1k"
+  # true = every further kill inside the time window adds the amount again.
+  stack-per-kill: true
+  # Killing a wanted player (bounty hunting) does not count as a kill.
+  ignore-wanted-victims: true
+
+top:
+  # Lines in /bounty top
+  size: 10
+
+broadcast:
+  # Tell the whole server when a bounty is placed.
+  place: true
+  # Only broadcast placements of at least this amount ("0" = all).
+  place-min: "0"
+  # Tell the whole server when a bounty is claimed.
+  claim: true
+
+head-drop:
+  # The target drops their head when a bounty is claimed. Placeholders: <target> <killer> <amount>
+  enabled: true
+  name: "<red><target>'s head"
+  lore:
+    - "<gray>Bounty: <gold><amount>"
+    - "<gray>Claimed by <white><killer>"
+
+# Remind players with a bounty when they join.
+join-reminder: true
+
+# Text for <placed_by> in the menu and /bounty check.
+placed-by:
+  one: "1 player"
+  many: "<count> players"
+  server: "the server"
+  both: "<players> + <server>"
+
+menu:
+  title: "<dark_red><bold>Bounties</bold></dark_red> <dark_gray>(<page>/<pages>)"
+  date-format: "yyyy-MM-dd HH:mm"
+  # Placeholders: <rank> <target> <total> <placed_by> <contributors> <status> <date>
+  head-name: "<red><bold>#<rank></bold> <white><target>"
+  head-lore:
+    - "<gray>Bounty: <gold><total>"
+    - "<gray>Placed by <white><placed_by>"
+    - "<gray>Status: <white><status>"
+    - "<dark_gray>Last added <date>"
+    - ""
+    - "<yellow>Click to add to this bounty"
+  head-lore-self:
+    - "<gray>Bounty: <gold><total>"
+    - "<gray>Placed by <white><placed_by>"
+    - ""
+    - "<red>That's you! Stay alive."
+  empty-name: "<gray>Nobody is wanted"
+  empty-lore:
+    - '<dark_gray>Place one with /bounty set \<player> \<amount>'
+  prev-name: "<yellow>Previous page"
+  next-name: "<yellow>Next page"
+  info-name: "<gold>Bounties"
+  info-lore:
+    - "<gray>Wanted players: <white><count>"
+    - ""
+    - "<gray>Kill a wanted player to claim"
+    - "<gray>the whole bounty."
+    - "<gray>Click a head to add money."
+  # Added under info-lore. Placeholders: <tax> <expiry> <count>
+  info-extra:
+    - ""
+    - "<dark_gray>Tax: <tax>% - expires after <expiry>"
+
+dialog:
+  title: "<dark_red>Bounty on <target>"
+  body: "<gray>Current bounty: <gold><total></gold><newline><gray>Your balance: <white><balance>"
+  # Added under the body. Placeholders: <tax>
+  body-extra: "<gray>Tax: <white><tax>%</white> on top"
+  input-label: "Amount to add (e.g. 500, 2.5k)"
+  confirm: "<green>Place bounty"
+  cancel: "<gray>Cancel"
+
+messages:
+  prefix: "<dark_gray>[<dark_red>Bounty</dark_red>]</dark_gray> "
+  help: '<gold><bold>Bounties</bold></gold><newline><gray>/bounty <dark_gray>- open the menu</dark_gray><newline>/bounty set \<player> \<amount><newline>/bounty check [player]<newline>/bounty top [claims|earned]'
+  help-admin: '<gold><bold>Bounties</bold></gold><newline><gray>/bounty <dark_gray>- open the menu</dark_gray><newline>/bounty set \<player> \<amount><newline>/bounty check [player]<newline>/bounty top [claims|earned]<newline><red>Admin:</red> /bounty give \<player> \<amount> <dark_gray>(server-paid)</dark_gray><newline>/bounty remove \<player> [norefund]<newline>/bounty forceclaim \<target> \<killer><newline>/bounty reload'
+  usage-set: '<prefix><gray>Usage: <white>/bounty set \<player> \<amount></white>'
+  placed: "<prefix><gray>You put <gold><amount></gold> on <red><target></red>. Total bounty: <gold><total></gold>"
+  placed-taxed: "<prefix><gray>You put <gold><amount></gold> on <red><target></red> <dark_gray>(+<tax> tax)</dark_gray>. Total bounty: <gold><total></gold>"
+  place-cooldown: "<prefix><red>Wait <seconds>s before placing another bounty."
+  claim-same-ip: "<prefix><red>No payout: you and <target> share an IP address. The bounty stays open."
+  claim-contributor: "<prefix><red>No payout: you paid into the bounty on <target>. The bounty stays open."
+  broadcast-auto: "<prefix><red><target></red> <gray>is on a killing spree (<kills> kills)! The server put <gold><amount></gold> on their head. Total: <gold><total></gold>"
+  auto-on-you: "<prefix><red>Killing spree! <gray>The server put <gold><amount></gold> on your head."
+  expired-refund: "<prefix><gray>Your <gold><amount></gold> bounty on <target> expired and was refunded."
+  expired-part: "<prefix><gray>Part of your bounty expired. Remaining: <gold><total></gold>"
+  expired-all: "<prefix><green>Your bounty expired. You're no longer wanted."
+  top-header: "<gold><bold>Top bounty hunters</bold></gold> <gray>(<type>)"
+  top-line: "<gray>#<rank> <white><player></white> <dark_gray>-</dark_gray> <gold><earned></gold> <dark_gray>(<claims> claims)</dark_gray>"
+  top-empty: "<prefix><gray>No bounties have been claimed yet."
+  top-type-claims: "most claims"
+  top-type-earned: "most earned"
+  broadcast-placed: "<prefix><yellow><player></yellow> <gray>put <gold><amount></gold> on <red><target></red>! Total: <gold><total></gold>"
+  placed-on-you: "<prefix><red>Someone wants you dead! <gray>Your bounty is now <gold><total></gold>."
+  place-self: "<prefix><red>You can't place a bounty on yourself."
+  place-exempt: "<prefix><red><target> can't receive bounties."
+  place-min: "<prefix><red>The minimum bounty is <min>."
+  not-enough: "<prefix><red>You can't afford <amount>. <gray>Balance: <gold><balance>"
+  invalid-amount: "<prefix><red>'<input>' is not a valid amount. <gray>Examples: 500, 2.5k, 1m"
+  player-not-found: "<prefix><red>Player '<player>' was not found."
+  killer-offline: "<prefix><red><player> must be online."
+  check: "<prefix><red><target></red> <gray>has a bounty of <gold><total></gold> <dark_gray>(placed by <placed_by>)"
+  check-none: "<prefix><gray><target> has no bounty."
+  claimed: "<prefix><green>You claimed the bounty on <red><target></red>: <gold>+<amount></gold>"
+  broadcast-claimed: "<prefix><yellow><killer></yellow> <gray>claimed the <gold><amount></gold> bounty on <red><target></red>!"
+  claimed-on-you: "<prefix><gray><killer> claimed your bounty of <gold><amount></gold>."
+  claim-failed: "<prefix><red>The bounty on <target> (<amount>) could not be paid to you, so it stays open."
+  join-reminder: "<prefix><red>You have a bounty of <gold><total></gold> on your head. Watch your back!"
+  refunded: "<prefix><gray>The bounty on <target> was removed. You got <gold><amount></gold> back."
+  admin-given: "<prefix><gray>Server bounty: <gold><amount></gold> on <red><target></red>. Total: <gold><total></gold>"
+  admin-removed: "<prefix><gray>Removed the bounty on <red><target></red>. Refunded <gold><amount></gold> to players."
+  admin-removed-norefund: "<prefix><gray>Removed the bounty on <red><target></red> without refunds."
+  no-permission: "<prefix><red>You don't have permission to do that."
+  players-only: "<prefix><red>Only players can use this."
+  reloaded: "<prefix><green>Config reloaded."
